@@ -2,6 +2,7 @@ version: 1.0
 jobs:
   deploy:
     steps:
+        - npm install -g zcatalyst-cli@beta
         - catalyst deploy
 stages:
   - name: deploy-stage
