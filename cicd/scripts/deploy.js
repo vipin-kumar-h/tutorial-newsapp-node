@@ -104,7 +104,7 @@ function deployResources(functions, deployClient) {
         try {
             let functionsArgs = "";
             functions.forEach(functionName => {
-                functionsArgs += ` function:${functionName}`;
+                functionsArgs += ` functions:${functionName}`;
             });
             
             console.log(`🚀 Executing command: catalyst deploy --only${functionsArgs}`);

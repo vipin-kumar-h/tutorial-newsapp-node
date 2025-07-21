@@ -7,6 +7,7 @@ app.use(express.json());
 //GET API that gets the news from the required table
 app.get('/fetchData', (req, res) => {
 	var tablename = req.query.tablename;
+	
 	var catalystApp = catalyst.initialize(req);
 
 	//Queries the Catalyst Data Store table and gets the required news
