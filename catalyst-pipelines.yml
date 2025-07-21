@@ -2,6 +2,7 @@ version: 1.0
 jobs:
   deploy:
     steps:
+        - printenv
         - npm install -g zcatalyst-cli@beta
         - catalyst deploy
 stages:
