@@ -1,4 +1,8 @@
 version: 1.0
+runners:
+  high:
+    config-id: 3
+pipeline-runner: high
 jobs:
   deploy:
     steps:
