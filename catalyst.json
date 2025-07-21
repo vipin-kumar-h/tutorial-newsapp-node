@@ -2,7 +2,7 @@
   "functions": {
     "targets": [
       "news_app_function",
-      "newsapp"
+      "news_app_function_dummy"
     ],
     "ignore": [],
     "source": "functions"

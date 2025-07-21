@@ -1,0 +1,9 @@
+{
+	"name": "news_app_function_dummy",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "vipin.kumar@zohocorp.com",
+	"dependencies": {
+		"zcatalyst-sdk-node": "beta"
+	}
+}
