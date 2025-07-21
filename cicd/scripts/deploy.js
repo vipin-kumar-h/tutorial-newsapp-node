@@ -100,7 +100,7 @@ function deployResources(functions, deployClient) {
         try {
             let functionsArgs = "functions:";
             functions.forEach(functionName => {
-                functionsArgs += ` ${functionName},`;
+                functionsArgs += `${functionName},`;
             });
             functionsArgs = functionsArgs.slice(0, -1);  // Remove trailing comma
 

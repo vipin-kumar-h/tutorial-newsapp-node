@@ -13,7 +13,7 @@ module.exports = (req, res) => {
 	switch (url) {
 		case '/':
 			res.writeHead(200, { 'Content-Type': 'text/html' });
-			res.write('<h1>Hello!!<h1>');
+			res.write('<h1>Hello!<h1>');
 			break;
 		default:
 			res.writeHead(404);
