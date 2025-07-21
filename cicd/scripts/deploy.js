@@ -51,13 +51,11 @@ function processCommits() {
             if (functionMatch) {
                 const functionName = functionMatch[1];
                 functionNames.add(functionName);
-                console.log(`Found function: ${functionName}`);
             }
             
             // Check if file is in client directory
             if (file.startsWith('client/')) {
                 deployClient = true;
-                console.log('Found client file - setting DEPLOY_CLIENT to true');
             }
         });
     });
@@ -67,12 +65,10 @@ function processCommits() {
     
     if (functionsArray.length > 0) {
         process.env.DEPLOY_FUNCTIONS = JSON.stringify(functionsArray);
-        console.log(`\nSetting DEPLOY_FUNCTIONS: ${JSON.stringify(functionsArray)}`);
     }
     
     if (deployClient) {
         process.env.DEPLOY_CLIENT = 'true';
-        console.log('Setting DEPLOY_CLIENT: true');
     }
 
     // Output summary
