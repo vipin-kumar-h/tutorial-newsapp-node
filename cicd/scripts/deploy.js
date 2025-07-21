@@ -98,13 +98,13 @@ function deployResources(functions, deployClient) {
         console.log(`📦 Deploying ${functions.length} function(s): ${functions.join(', ')}`);
         
         try {
-            let functionsArgs = "functions:";
+            let functionsArgs = "";
             functions.forEach(functionName => {
-                functionsArgs += `${functionName},`;
+                functionsArgs += `functions:${functionName},`;
             });
             functionsArgs = functionsArgs.slice(0, -1);  // Remove trailing comma
 
-            console.log(`🚀 Executing command: catalyst deploy --only${functionsArgs}`);
+            console.log(`🚀 Executing command: catalyst deploy --only ${functionsArgs}`);
             execSync(`catalyst deploy --only ${functionsArgs}`, { stdio: 'inherit' });
             console.log(`✅ Successfully deployed functions: ${functions.join(', ')}`);
             
