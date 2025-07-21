@@ -1,0 +1,92 @@
+#!/usr/bin/env node
+
+/**
+ * Deploy script that processes commits from environment variables
+ * and sets deployment flags based on changed files
+ */
+
+function processCommits() {
+    // Get commits from environment variable
+    const commitsEnv = process.env.commits;
+    
+    if (!commitsEnv) {
+        console.log('No commits environment variable found');
+        return;
+    }
+
+    let commits;
+    try {
+        commits = JSON.parse(commitsEnv);
+    } catch (error) {
+        console.error('Error parsing commits JSON:', error.message);
+        return;
+    }
+
+    if (!Array.isArray(commits)) {
+        console.error('Commits should be an array');
+        return;
+    }
+
+    const functionNames = new Set();
+    let deployClient = false;
+
+    // Process each commit
+    commits.forEach(commit => {
+        console.log(`Processing commit: ${commit.id} - ${commit.message}`);
+        
+        // Get all changed files from added, modified, and removed arrays
+        const changedFiles = [
+            ...(commit.added || []),
+            ...(commit.modified || []),
+            ...(commit.removed || [])
+        ];
+
+        changedFiles.forEach(file => {
+            console.log(`Checking file: ${file}`);
+            
+            // Check if file is in functions directory
+            const functionMatch = file.match(/^functions\/([^\/]+)\//);
+            if (functionMatch) {
+                const functionName = functionMatch[1];
+                functionNames.add(functionName);
+                console.log(`Found function: ${functionName}`);
+            }
+            
+            // Check if file is in client directory
+            if (file.startsWith('client/')) {
+                deployClient = true;
+                console.log('Found client file - setting DEPLOY_CLIENT to true');
+            }
+        });
+    });
+
+    // Set environment variables for deployment
+    const functionsArray = Array.from(functionNames);
+    
+    if (functionsArray.length > 0) {
+        process.env.DEPLOY_FUNCTIONS = JSON.stringify(functionsArray);
+        console.log(`\nSetting DEPLOY_FUNCTIONS: ${JSON.stringify(functionsArray)}`);
+    }
+    
+    if (deployClient) {
+        process.env.DEPLOY_CLIENT = 'true';
+        console.log('Setting DEPLOY_CLIENT: true');
+    }
+
+    // Output summary
+    console.log('\n=== Deployment Summary ===');
+    console.log(`Functions to deploy: ${functionsArray.length > 0 ? functionsArray.join(', ') : 'None'}`);
+    console.log(`Deploy client: ${deployClient ? 'Yes' : 'No'}`);
+    
+    return {
+        functions: functionsArray,
+        deployClient: deployClient
+    };
+}
+
+// Run the script if called directly
+if (require.main === module) {
+    processCommits();
+}
+
+module.exports = { processCommits };
