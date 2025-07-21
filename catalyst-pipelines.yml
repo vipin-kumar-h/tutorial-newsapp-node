@@ -4,8 +4,6 @@ jobs:
     steps:
         - npm install -g zcatalyst-cli@beta
         - node cicd/scripts/deploy.js
-        - printenv
-        - catalyst deploy
 stages:
   - name: deploy-stage
     jobs:
