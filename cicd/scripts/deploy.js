@@ -15,6 +15,7 @@ function processCommits() {
         console.log(`🚀 Executing command: catalyst deploy`);
         execSync(`catalyst deploy`, { stdio: 'inherit' });
         console.log(`✅ Successfully deployed!`);
+        return
     }
     
     if (!commitsEnv) {
