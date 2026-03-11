@@ -10,6 +10,12 @@ const { execSync } = require('child_process');
 function processCommits() {
     // Get commits from environment variable
     const commitsEnv = process.env.commits;
+
+    if(process.env.FULL_DEPLOY){
+        console.log(`🚀 Executing command: catalyst deploy --only ${functionsArgs}`);
+        execSync(`catalyst deploy`, { stdio: 'inherit' });
+        console.log(`✅ Successfully deployed functions: ${functions.join(', ')}`);
+    }
     
     if (!commitsEnv) {
         console.log('No commits environment variable found');
