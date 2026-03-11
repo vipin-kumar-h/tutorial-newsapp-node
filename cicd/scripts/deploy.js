@@ -12,9 +12,9 @@ function processCommits() {
     const commitsEnv = process.env.commits;
 
     if(process.env.FULL_DEPLOY){
-        console.log(`🚀 Executing command: catalyst deploy --only ${functionsArgs}`);
+        console.log(`🚀 Executing command: catalyst deploy`);
         execSync(`catalyst deploy`, { stdio: 'inherit' });
-        console.log(`✅ Successfully deployed functions: ${functions.join(', ')}`);
+        console.log(`✅ Successfully deployed!`);
     }
     
     if (!commitsEnv) {
